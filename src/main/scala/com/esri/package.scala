@@ -14,7 +14,7 @@ import scalaxy.loops._
 package object esri {
 
   implicit class IntImplicits(i: Int) {
-    def toCell(qrMin: Cell, qrDel: Cell) = {
+    @inline def toCell(qrMin: Cell, qrDel: Cell) = {
       Cell(qrMin.q + i % qrDel.q, qrMin.r + i / qrDel.q)
     }
   }
