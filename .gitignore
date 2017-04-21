@@ -1,4 +1,5 @@
 target/
 .idea/
-*.iml
+spark-warehouse/
 src/main/python/*.xml
+*.iml
