@@ -34,8 +34,8 @@ object ColorSpark extends App {
     val epochMax = 40
     val radInit = somSize / 2
     val alphaInit = 0.2
-    val radDecay = ExpDecay(radInit, 1, epochMax)
-    val alphaDecay = ExpDecay(alphaInit, 0.001, epochMax)
+    val radDecay = ExpDecay(radInit, epochMax)
+    val alphaDecay = ExpDecay(alphaInit, epochMax)
 
     @tailrec
     def _train(epoch: Int, som: SOM): SOM = {
@@ -43,8 +43,8 @@ object ColorSpark extends App {
         som
       }
       else {
-        val alpha = alphaDecay.value(epoch)
-        val rad = radDecay.value(epoch)
+        val alpha = alphaDecay(epoch)
+        val rad = radDecay(epoch)
         val bc = spark.sparkContext.broadcast(som)
         val newSOM = rdd
           .mapPartitions(iter => {

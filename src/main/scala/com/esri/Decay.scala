@@ -11,5 +11,5 @@ trait Decay extends Serializable {
     * @param step the step in the range.
     * @return the decay value at the step.
     */
-  def value(step: Double): Double
+  def apply(step: Double): Double
 }

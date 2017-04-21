@@ -9,6 +9,7 @@ import org.apache.commons.math.stat.descriptive.SummaryStatistics
 import resource._
 
 import scala.collection.JavaConversions._
+import scalaxy.loops._
 
 package object esri {
 
@@ -93,21 +94,17 @@ package object esri {
       val bi = new BufferedImage(imgSize, imgSize, BufferedImage.TYPE_INT_RGB)
       som.nodes.foreach(node => {
         var sx = node.q * cellSize
-        var i = 0
-        while (i < cellSize) {
+        for (_ <- 0 until cellSize optimized) {
           var sy = node.r * cellSize
-          var j = 0
-          while (j < cellSize) {
+          for (_ <- 0 until cellSize optimized) {
             val r = (255.0 * node.vec(0)).toInt
             val g = (255.0 * node.vec(1)).toInt
             val b = (255.0 * node.vec(2)).toInt
             val rgb = (r << 16) | (g << 8) | b
             bi.setRGB(sx, sy, rgb)
             sy += 1
-            j += 1
           }
           sx += 1
-          i += 1
         }
       })
       for (outputStream <- managed(new FileOutputStream(outputPath)))
@@ -193,30 +190,24 @@ package object esri {
           somStats.nodes.get(node).foreach(nodeStats => {
             var x = sx + 2
             var y = sy + 2
-            var n = 0
             g.setColor(Color.RED)
-            while (n < nodeStats.setosa) {
+            for (_ <- 0 until nodeStats.setosa optimized) {
               g.fillRect(x, y, 10, 10)
               x += 11
-              n += 1
             }
             y += 12
             x = sx + 2
-            n = 0
             g.setColor(Color.GREEN)
-            while (n < nodeStats.versicolor) {
+            for (_ <- 0 until nodeStats.versicolor optimized) {
               g.fillRect(x, y, 10, 10)
               x += 11
-              n += 1
             }
             y += 12
             x = sx + 2
-            n = 0
             g.setColor(Color.BLUE)
-            while (n < nodeStats.virginica) {
+            for (_ <- 0 until nodeStats.virginica optimized) {
               g.fillRect(x, y, 10, 10)
               x += 11
-              n += 1
             }
           })
         })

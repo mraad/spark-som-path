@@ -131,4 +131,39 @@ case class SOM(nodes: Seq[Node]) {
 
     pb.finish()
   }
+
+  /**
+    * Train the SOM.
+    *
+    * @param trainVec    the training vectors.
+    * @param epochMax    the training epochs.
+    * @param alphaDecay  the learning decay.
+    * @param radiusDecay the radius decay.
+    * @param pb          implicit progress bar.
+    */
+  def trainDecay(trainVec: Seq[Vector[Double]],
+                 epochMax: Int,
+                 alphaDecay: Decay,
+                 radiusDecay: Decay
+                )(implicit pb: ProgressBar = NoopProgressBar()): Unit = {
+
+    val trainLen = trainVec.length
+    val rnd = new java.security.SecureRandom()
+
+    @tailrec
+    def _train(epoch: Int): Unit = {
+      if (epoch < epochMax) {
+        val alpha = alphaDecay(epoch)
+        val rad = radiusDecay(epoch)
+        val vec = trainVec(rnd.nextInt(trainLen))
+        train(vec, alpha, rad)
+        pb.progress()
+        _train(epoch + 1)
+      }
+    }
+
+    _train(0)
+
+    pb.finish()
+  }
 }

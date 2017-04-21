@@ -30,6 +30,6 @@ object ColorApp extends App {
   val epochMax = colorLen * 100
   implicit val pb = TerminalProgressBar(epochMax)
   val som = SOM(nodes)
-  som.train(colorSeq, epochMax, 4, initialAlpha = 0.2)
+  som.train(colorSeq, epochMax, somSize / 2, initialAlpha = 0.3)
   som.saveAsPNG("/tmp/som.png", 20)
 }

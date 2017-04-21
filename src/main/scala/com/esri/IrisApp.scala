@@ -39,6 +39,8 @@ object IrisApp extends App {
   val epochMax = 10000
   implicit val pb = TerminalProgressBar(epochMax)
   val som = SOM(nodes)
-  som.train(data, epochMax, 3, initialAlpha = 0.4)
+  val aDecay = ExpDecay(0.5, epochMax)
+  val rDecay = ExpDecay(4, epochMax)
+  som.trainDecay(data, epochMax, aDecay, rDecay)
   som.saveIris("/tmp/iris.png", 110, irisArr)
 }
