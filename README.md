@@ -68,3 +68,4 @@ spark-submit --driver-memory 32g --executor-memory 32g target/spark-som-path-0.1
 - https://www.cloudera.com/documentation/enterprise/5-5-x/topics/spark_mllib.html
 - https://en.wikipedia.org/wiki/Iris_flower_data_set
 - http://www.pymvpa.org/index.html
+- http://ochafik.com/p_806
